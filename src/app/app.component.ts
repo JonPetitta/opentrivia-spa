@@ -1,10 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { OpenTriviaDbService, TokenResponse } from "./open-trivia-db.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [OpenTriviaDbService]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'app';
+  tokenResponse: TokenResponse;
+
+  constructor(private openTriviaDB: OpenTriviaDbService) {}
+
+  ngOnInit(): void {
+    this.openTriviaDB.GetToken()
+      .subscribe(res => {
+        this.tokenResponse = res },
+        error => console.error(error));
+  }
 }

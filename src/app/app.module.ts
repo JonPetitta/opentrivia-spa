@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { OpenTriviaDbService } from "./open-trivia-db.service";
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -11,9 +13,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     NgbModule.forRoot()
   ],
-  providers: [],
+  providers: [OpenTriviaDbService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
