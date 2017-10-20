@@ -6,10 +6,16 @@ import { AppComponent } from './app.component';
 import { OpenTriviaDbService } from "./open-trivia-db.service";
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OtmenuComponent } from './otmenu/otmenu.component';
+import { OtquestionComponent } from './otquestion/otquestion.component';
+import { OtresultsComponent } from './otresults/otresults.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    OtmenuComponent,
+    OtquestionComponent,
+    OtresultsComponent
   ],
   imports: [
     BrowserModule,
