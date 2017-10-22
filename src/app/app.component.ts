@@ -8,7 +8,9 @@ import { OpenTriviaDbService, TokenResponse } from "./open-trivia-db.service";
   providers: [OpenTriviaDbService]
 })
 export class AppComponent implements OnInit {
-  title = 'app';
+  title = 'Open Trivia Demo';
+  titleColor = '#000080';
+  titleBackground = '#000080';
   tokenResponse: TokenResponse;
 
   constructor(private openTriviaDB: OpenTriviaDbService) {}

@@ -9,13 +9,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OtmenuComponent } from './otmenu/otmenu.component';
 import { OtquestionComponent } from './otquestion/otquestion.component';
 import { OtresultsComponent } from './otresults/otresults.component';
+import { OtanswerComponent } from './otanswer/otanswer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OtmenuComponent,
     OtquestionComponent,
-    OtresultsComponent
+    OtresultsComponent,
+    OtanswerComponent
   ],
   imports: [
     BrowserModule,
