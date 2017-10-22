@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OtquestionComponent implements OnInit {
 
-  baseClass = "p-2";
-  selectedClass = "p-2 alert-primary";
+  baseClass = "hand border rounded p-2";
+  selectedClass = "hand hand-selected border rounded p-2";
   selectedAnswer;
 
   question = `
@@ -18,7 +18,7 @@ export class OtquestionComponent implements OnInit {
   `
   answers = [
     {
-      "answerId":"Answer1",
+      "answerId": "Answer1",
       "answerText": "Is this the correct answer"
     },
     {

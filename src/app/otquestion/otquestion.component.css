@@ -2,3 +2,11 @@
   cursor: pointer;
   cursor: hand;
 }
+
+.hand:hover {
+  background-color:  rgba(52, 138, 199, 0.44) !important;
+}
+
+.hand-selected {
+  background-color:  rgba(52, 138, 199, 0.44) !important;
+}
