@@ -22,10 +22,27 @@ export class OpenTriviaDbService {
       .map(res => res.json() as TokenResponse);
   }
 
+  Categories(): Observable<TriviaCategories> {
+    let categoryUrl: string = this.baseUrl +
+                              this.categoryEndpoint;
+
+    return this.http.get(categoryUrl)
+      .map(res => res.json() as TriviaCategories);
+  }
+
 }
 
 export interface TokenResponse {
   response_code: number;
   response_message: string;
   token: string;
+}
+
+export interface TriviaCategories {
+  trivia_categories: TriviaCategory[];
+}
+
+export interface TriviaCategory {
+  id: number;
+  name: string;
 }

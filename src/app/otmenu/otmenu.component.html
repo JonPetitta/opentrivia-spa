@@ -1,29 +1,60 @@
 <div class="row">
-  <div class="col-sm-4 pt-1 pb-2">
-    <strong class="mr-3">Category:</strong>
-    <select class="dropdown">
-      <option>Any</option>
-      <option>Cat1</option>
-      <option>Cat2</option>
-      <option>Cat3</option>
-      <option>Cat4</option>
-    </select>
+  <div class="col-sm-4 pt-2 pb-2">
+    
+    <span *ngIf="!categories"><em>Loading...</em></span>
+    
+    <div ngbDropdown 
+         class="d-inline-block"
+         *ngIf="categories">
+      <button class="btn btn-outline-secondary" id="catDrop" ngbDropdownToggle>
+        Category
+      </button>
+      <div ngbDropdownMenu aria-labelledby="catDrop">
+        <button class="dropdown-item"
+                (click)="setCategory(0)">
+          Any
+        </button>
+        <button class="dropdown-item"
+                *ngFor="let category of categories"
+                (click)="setCategory(category.id)">
+          {{ category.name }}
+        </button>
+      </div>
+    </div>
+    
   </div>
   <div class="col-sm-4 pt-2 pb-2">
-    <strong class="mr-3">Difficulty:</strong>
-    <select class="dropdown">
-      <option>Any</option>
-      <option>Easy</option>
-      <option>Medium</option>
-      <option>Hard</option>
-    </select>
+
+    <div ngbDropdown 
+         class="d-inline-block">
+      <button class="btn btn-outline-secondary" id="catDrop" ngbDropdownToggle>
+        Difficulty
+      </button>
+      <div ngbDropdownMenu aria-labelledby="catDrop">
+        <button class="dropdown-item"
+                *ngFor="let difficulty of difficulties"
+                (click)="setDifficulty(difficulty.Value)">
+          {{ difficulty.Name }}
+        </button>
+      </div>
+    </div>
+
   </div>
   <div class="col-sm-4 pt-2 pb-4">
-    <strong class="mr-3">Type:</strong>
-    <select>
-      <option>Any</option>
-      <option>Multiple Choice</option>
-      <option>True/False</option>
-    </select>
+
+    <div ngbDropdown 
+         class="d-inline-block">
+      <button class="btn btn-outline-secondary" id="catDrop" ngbDropdownToggle>
+        Type
+      </button>
+      <div ngbDropdownMenu aria-labelledby="catDrop">
+        <button class="dropdown-item"
+                *ngFor="let type of types"
+                (click)="setType(type.Value)">
+          {{ type.Name }}
+        </button>
+      </div>
+    </div>
+
   </div>
 </div>
