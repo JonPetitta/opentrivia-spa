@@ -1,13 +1,14 @@
 <div class="row justify-content-center mb-3">
   <div  class="col-sm-4">
-    <strong class="mr-3">Questions:</strong>
-    <span>N</span>
+    <strong class="mr-3">Correct Answers:</strong>
+    <span>{{ correctAnswers }}</span>
   </div>
   <div class="col-sm-4">
-      <strong class="mr-3">Correct Answers:</strong>
-      <span>N</span>      
+      <strong class="mr-3">Wrong Answers:</strong>
+      <span>{{ wrongAnswers }}</span>      
   </div>
 </div>
 <div class="row justify-content-center">
-  <button mat-raised-button class="col-4 p-2 mb-3">Reset</button>    
+  <button mat-raised-button class="col-4 p-2 mb-3"
+                            (click)="reset()">Reset</button>    
 </div>

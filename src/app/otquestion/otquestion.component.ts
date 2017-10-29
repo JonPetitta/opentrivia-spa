@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { OtresultsComponent } from "../otresults/otresults.component";
+import { OpenTriviaDbService, TokenResponse } from '../open-trivia-db.service';
 
 @Component({
   selector: 'app-otquestion',
@@ -7,13 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OtquestionComponent implements OnInit {
 
-  categoryId: number = 0;
-  difficulty: string = "";
-  type: string = "";
+  @ViewChild(OtresultsComponent)
+  private otResults: OtresultsComponent;
 
+  private tokenResponse: TokenResponse;
+  
+  private categoryId: number = 0;
+  private difficulty: string = "";
+  private type: string = "";
+
+  private selectedElement;
   baseClass = "hand border rounded p-2";
   selectedClass = "hand hand-selected border rounded p-2";
   selectedAnswer;
+  correctAnswer = "Answer2";
 
   question = `
   The question goes here The question goes here
@@ -34,41 +43,59 @@ export class OtquestionComponent implements OnInit {
       "answerText": "Or could it be this one"    
     }];
 
-  constructor() { }
+  constructor(private openTriviaDB: OpenTriviaDbService) { }
 
   ngOnInit() {
+    this.getToken();
+    this.nextQuestion();
+  }
+
+  getToken(){
+    this.openTriviaDB.getToken()
+    .subscribe(res => {
+      this.tokenResponse = res },
+      error => console.error(error));
   }
 
   selectAnswer(event: MouseEvent) {
-    
-    var grandParent = event.srcElement.parentElement.parentElement.children;
-    for (var index = 0; index < grandParent.length; index++) {
-      var parent = grandParent[index].children;
-      for (var index2 = 0; index2 < parent.length; index2++) {
-        var question = parent[index2];
-        question.className = this.baseClass;
-      }
+    if (undefined != this.selectedElement) {
+      this.selectedElement.className = this.baseClass;
     }
 
-    event.srcElement.className = this.selectedClass;
-    this.selectedAnswer = event.srcElement.id;
-    console.log(this.selectedAnswer);
+    this.selectedElement = event.srcElement;
+    this.selectedElement.className = this.selectedClass;
 
+    this.selectedAnswer = this.selectedElement.id;
+  }
+
+  checkAnswer(){
+    if (this.correctAnswer == this.selectedAnswer) {
+      this.otResults.correctAnswer();
+    }
+    else{
+      this.otResults.wrongAnswer();
+    }
+  }
+
+  nextQuestion(){
+    this.openTriviaDB.getQuestion();
   }
 
   onCatagorySelect(event){
-    console.log(event);
     this.categoryId = event;
   }
 
   onDifficultySelect(event){
-    console.log(event);
     this.difficulty = event;
   }
 
   onTypeSelect(event){
-    console.log(event);
     this.type = event;
   }
 
+  onReset(event){
+    if (event) {
+      this.getToken();
+    }
+  }
 }

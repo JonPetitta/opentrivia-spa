@@ -27,7 +27,7 @@ export class OtmenuComponent implements OnInit {
   constructor(private openTriviaDB: OpenTriviaDbService) { }
 
   ngOnInit() {
-    this.openTriviaDB.Categories()
+    this.openTriviaDB.categories()
       .subscribe(res => {
         this.categories = res.trivia_categories },
         error => console.error(error));

@@ -13,7 +13,7 @@ export class OpenTriviaDbService {
 
   constructor(private http: Http) { }
 
-  GetToken(): Observable<TokenResponse> {
+  getToken(): Observable<TokenResponse> {
     let tokenUrl: string = this.baseUrl +
                            this.tokenEndpoint +
                            '?command=request';
@@ -22,12 +22,16 @@ export class OpenTriviaDbService {
       .map(res => res.json() as TokenResponse);
   }
 
-  Categories(): Observable<TriviaCategories> {
+  categories(): Observable<TriviaCategories> {
     let categoryUrl: string = this.baseUrl +
                               this.categoryEndpoint;
 
     return this.http.get(categoryUrl)
       .map(res => res.json() as TriviaCategories);
+  }
+
+  getQuestion(){
+
   }
 
 }

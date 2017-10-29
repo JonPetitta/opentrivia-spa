@@ -24,9 +24,11 @@
   </div>
   <hr class="col ml-4 mr-4 h-5 bg-dark">
   <div class="col-12 pt-4">
-    <button mat-raised-button class="col-sm-4 mr-md-3 mb-3 p-2">Am I Right</button>
-    <button mat-raised-button class="col-sm-4 ml-md-3 mb-3 p-2">Next Question</button>
+    <button mat-raised-button class="col-sm-4 mr-md-3 mb-3 p-2"
+                              (click)="checkAnswer()">Am I Right</button>
+    <button mat-raised-button class="col-sm-4 ml-md-3 mb-3 p-2"
+                              (click)="nextQuestion()">Next Question</button>
   </div>
 </div>
 
-<app-otresults></app-otresults>
+<app-otresults (onReset)="onReset($event)"></app-otresults>
