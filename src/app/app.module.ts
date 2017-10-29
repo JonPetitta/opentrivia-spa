@@ -3,12 +3,15 @@ import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { OpenTriviaDbService } from "./open-trivia-db.service";
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material';
+
 import { OtmenuComponent } from './otmenu/otmenu.component';
 import { OtquestionComponent } from './otquestion/otquestion.component';
 import { OtresultsComponent } from './otresults/otresults.component';
+import { OpenTriviaDbService } from "./open-trivia-db.service";
 
 @NgModule({
   declarations: [
@@ -19,6 +22,8 @@ import { OtresultsComponent } from './otresults/otresults.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
     HttpModule,
     NgbModule.forRoot()
   ],
