@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OtquestionComponent implements OnInit {
 
+  categoryId: number = 0;
+  difficulty: string = "";
+  type: string = "";
+
   baseClass = "hand border rounded p-2";
   selectedClass = "hand hand-selected border rounded p-2";
   selectedAnswer;
@@ -50,6 +54,21 @@ export class OtquestionComponent implements OnInit {
     this.selectedAnswer = event.srcElement.id;
     console.log(this.selectedAnswer);
 
+  }
+
+  onCatagorySelect(event){
+    console.log(event);
+    this.categoryId = event;
+  }
+
+  onDifficultySelect(event){
+    console.log(event);
+    this.difficulty = event;
+  }
+
+  onTypeSelect(event){
+    console.log(event);
+    this.type = event;
   }
 
 }

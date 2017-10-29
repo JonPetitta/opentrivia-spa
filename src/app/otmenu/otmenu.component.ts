@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { OpenTriviaDbService, TriviaCategory } from '../open-trivia-db.service';
 
@@ -9,7 +9,12 @@ import { OpenTriviaDbService, TriviaCategory } from '../open-trivia-db.service';
 })
 export class OtmenuComponent implements OnInit {
 
+  @Output() onCatagorySelect   = new EventEmitter<number>();
+  @Output() onDifficultySelect = new EventEmitter<string>();
+  @Output() onTypeSelect       = new EventEmitter<string>();
+
   categories: TriviaCategory[];
+  
   difficulties = [ { Name: "Any",    Value: "any" },
                    { Name: "Easy",   Value: "easy" },
                    { Name: "Medium", Value: "medium" },
@@ -25,20 +30,19 @@ export class OtmenuComponent implements OnInit {
     this.openTriviaDB.Categories()
       .subscribe(res => {
         this.categories = res.trivia_categories },
-        error => console.error(error),
-        () => console.log(this.categories));
+        error => console.error(error));
   }
 
   setCategory(id: number){
-    console.log(id);
+    this.onCatagorySelect.emit(id);
   }
 
   setDifficulty(difficulty: string){
-    console.log(difficulty);
+    this.onDifficultySelect.emit(difficulty);
   }
 
   setType(type: string){
-    console.log(type);
+    this.onTypeSelect.emit(type);
   }
 
 }
