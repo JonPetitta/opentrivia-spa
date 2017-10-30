@@ -22,7 +22,11 @@ export class OtquestionComponent implements OnInit {
   private selectedElement;
   baseClass = "hand border rounded p-2";
   selectedClass = "hand hand-selected border rounded p-2";
+  selectedCorrectClass = "hand hand-selected border border-success rounded p-2";
+  selectedWrongClass = "hand hand-selected border border-danger rounded p-2"
+  correctClass = "hand border border-success rounded p-2";
   selectedAnswerId;
+  correctAnswerId;
 
   question: string;
   answers: any;
@@ -55,16 +59,33 @@ export class OtquestionComponent implements OnInit {
   }
 
   checkAnswer(){
-    this.answers.forEach(answer => {
-      if (answer.correct) {
-        if (this.selectedAnswerId == answer.answerId) {
-          this.otResults.correctAnswer();
-        }
-        else {
-          this.otResults.wrongAnswer();
+    if (this.selectedAnswerId == this.correctAnswerId) {
+      this.otResults.correctAnswer();
+      this.markAnswerCorrect(this.selectedElement);
+    }
+    else {
+      this.otResults.wrongAnswer();
+      this.markAnswerWrong(this.selectedElement);
+    }
+  }
+
+  markAnswerCorrect(selection){
+    selection.className = this.selectedCorrectClass;
+  }
+
+  markAnswerWrong(selection){
+    selection.className = this.selectedWrongClass;
+
+    var grandParent = selection.parentElement.parentElement.children;
+    for (var index = 0; index < grandParent.length; index++) {
+      var parent = grandParent[index].children;
+      for (var index2 = 0; index2 < parent.length; index2++) {
+        var question = parent[index2];
+        if (this.correctAnswerId == question.id) {
+          question.className = this.correctClass;          
         }
       }
-    });
+    }
   }
 
   nextQuestion(){
@@ -103,6 +124,8 @@ export class OtquestionComponent implements OnInit {
     else {
       correctId = Math.floor((Math.random() * numberAnswers));
     }
+
+    this.correctAnswerId = correctId;
 
     for (var index = 0; index < numberAnswers; index++) {
       if (index == correctId) {
