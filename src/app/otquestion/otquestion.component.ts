@@ -103,7 +103,7 @@ export class OtquestionComponent implements OnInit {
   }
 
   formatQuestion(){
-    this.question = decodeURIComponent(this.questions.results[0].question);
+    this.question = this.unescape(this.questions.results[0].question);
     let correctAnswer = this.questions.results[0].correct_answer;
     let wrongAnswers = this.questions.results[0].incorrect_answers;
     this.answers = this.formatAnswers(correctAnswer, wrongAnswers)
@@ -130,22 +130,29 @@ export class OtquestionComponent implements OnInit {
     for (var index = 0; index < numberAnswers; index++) {
       if (index == correctId) {
         answers[index] = { answerId: index,
-                           answerText: decodeURIComponent(correctAnswer),
+                           answerText: this.unescape(correctAnswer),
                            correct: true };
       } else {
         if (index < correctId) {
           answers[index] = { answerId: index,
-                             answerText: decodeURIComponent(wrongAnswers[index]),
+                             answerText: this.unescape(wrongAnswers[index]),
                              correct: false };        
         } else {
           answers[index] = { answerId: index,
-                             answerText: decodeURIComponent(wrongAnswers[index -1]),
+                             answerText: this.unescape(wrongAnswers[index -1]),
                              correct: false };        
         }
       }
     }
     
     return answers;
+  }
+
+  unescape(input){
+    var e = document.createElement('div');
+    e.innerHTML = input;
+    // handle case of empty input
+    return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
   }
 
   onCatagorySelect(event){
