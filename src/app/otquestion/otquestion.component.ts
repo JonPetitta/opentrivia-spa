@@ -28,6 +28,7 @@ export class OtquestionComponent implements OnInit {
   selectedAnswerId;
   correctAnswerId;
 
+  alert: string;
   question: string;
   answers: any;
 
@@ -103,10 +104,41 @@ export class OtquestionComponent implements OnInit {
   }
 
   formatQuestion(){
+
+    if (0 != this.questions.response_code) {
+      this.setAlert(this.questions.response_code);  
+    }
+    else {
+      this.alert = undefined;
+    }
+
     this.question = this.unescape(this.questions.results[0].question);
     let correctAnswer = this.questions.results[0].correct_answer;
     let wrongAnswers = this.questions.results[0].incorrect_answers;
     this.answers = this.formatAnswers(correctAnswer, wrongAnswers)
+  }
+
+  setAlert(resCode){
+    switch (resCode) {
+      case 1:
+        this.alert = "No Results Could not return results. The API doesn't have enough questions for your query.";
+        break;
+    
+      case 2:
+        this.alert = "Invalid Parameter Contains an invalid parameter. Arguements passed in aren't valid.";
+        break;
+
+      case 3:
+        this.alert = "Token Not Found Session Token does not exist.";
+        break;
+
+      case 4:
+        this.alert = "Token Empty Session Token has returned all possible questions for the specified query. Resetting the Token is necessary.";
+        break;
+
+      default:
+        break;
+    }
   }
 
   formatAnswers(correctAnswer, wrongAnswers){
@@ -184,6 +216,12 @@ export class OtquestionComponent implements OnInit {
 
   onReset(event){
     if (event) {
+      this.categoryId = undefined;
+      this.difficulty = undefined;
+      this.type = undefined;
+      this.selectedElement = undefined;
+      this.selectedAnswerId = undefined;
+      this.alert = undefined;
       this.getToken();
     }
   }

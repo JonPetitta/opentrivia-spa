@@ -31,6 +31,7 @@
 <div class="row justify-content-center pt-4">
     <!-- <button mat-raised-button class="col-sm-4 mr-md-3 mb-3 p-2"
                               (click)="checkAnswer()">Am I Right</button> -->
+    <ngb-alert [dismissible]="false" *ngIf="alert">{{ alert }}</ngb-alert>
     <button mat-raised-button class="col-sm-4 mb-3 p-2"
                               (click)="nextQuestion()">Next Question</button>
 </div>
