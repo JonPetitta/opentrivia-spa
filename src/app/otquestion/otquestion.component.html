@@ -5,13 +5,16 @@
 <div class="row">
   <div class="col-12 pt-2 pb-2">
     <strong class="mr-3">Question:</strong>
-    <span>
+    <span *ngIf="!question"><em>Loading...</em></span>
+    <span *ngIf="question">
       {{ question }}
     </span>
   </div>
   <hr class="col ml-4 mr-4 h-5 bg-dark">
   <div class="col-12 mt-3 mb-3">
-    <ul class="list-unstyled">
+    <span *ngIf="!answers"><em>Loading...</em></span>
+    <ul class="list-unstyled"
+        *ngIf="answers">
       <li class="m-3"
           *ngFor="let answer of answers">
         <div id="{{ answer.answerId }}"
@@ -23,12 +26,13 @@
     </ul>
   </div>
   <hr class="col ml-4 mr-4 h-5 bg-dark">
-  <div class="col-12 pt-4">
-    <button mat-raised-button class="col-sm-4 mr-md-3 mb-3 p-2"
-                              (click)="checkAnswer()">Am I Right</button>
-    <button mat-raised-button class="col-sm-4 ml-md-3 mb-3 p-2"
+</div>
+
+<div class="row justify-content-center pt-4">
+    <!-- <button mat-raised-button class="col-sm-4 mr-md-3 mb-3 p-2"
+                              (click)="checkAnswer()">Am I Right</button> -->
+    <button mat-raised-button class="col-sm-4 mb-3 p-2"
                               (click)="nextQuestion()">Next Question</button>
-  </div>
 </div>
 
 <app-otresults (onReset)="onReset($event)"></app-otresults>

@@ -30,8 +30,42 @@ export class OpenTriviaDbService {
       .map(res => res.json() as TriviaCategories);
   }
 
-  getQuestion(){
+  getQuestion(token: string,
+              category: number,
+              difficulty: string,
+              type: string): Observable<Questions> {
+    
+                let questionUrl: string = this.baseUrl +
+                              this.questionEndpoint;
+    let queryParams = this.formatQueryParams(token,
+                                             category,
+                                             difficulty,
+                                             type);
 
+    return this.http.get(questionUrl + queryParams)
+      .map(res => res.json() as Questions);
+  }
+
+  formatQueryParams(token: string,
+                    category: number,
+                    difficulty: string,
+                    type: string): string{
+    
+    let queryParams = "?amount=1&token=" + token;
+
+    if (undefined != category) {
+      queryParams += "&category=" + category;
+    }
+
+    if (undefined != difficulty) {
+      queryParams += "&difficulty=" + difficulty;
+    }
+
+    if (undefined != type) {
+      queryParams += "&type=" + type;
+    }
+
+    return queryParams;
   }
 
 }
@@ -50,3 +84,18 @@ export interface TriviaCategory {
   id: number;
   name: string;
 }
+
+export interface Result {
+  category: string;
+  type: string;
+  difficulty: string;
+  question: string;
+  correct_answer: string;
+  incorrect_answers: string[];
+}
+
+export interface Questions {
+  response_code: number;
+  results: Result[];
+}
+
